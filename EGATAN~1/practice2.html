@@ -1,0 +1,173 @@
+<head>
+	<title> E-Light </title>
+	<meta charset="utf-8">
+
+	<style>
+ 		
+		.tblType1 th1{}
+		.tblType1 th2{}
+		.tblType1 th3{}
+		.tblType1 th4{}
+		.tblType1 th5{}
+
+		
+	#div_root{
+		margin: 	auto;	
+		width: 	800px;
+	}	
+
+	#div_top{
+		width: 	30%:
+		height: 100px;
+		text-align: 	left;
+		float: left;			
+	}
+
+	#div_hello{
+		width: 	70%:
+		height: 100px;
+		text-align: 	left;	
+	}
+
+	#div_menu{
+		width: 	9%;
+		height: 300px;
+		float: 	left;	
+		text-align: 	center;	
+	}
+
+	#div_line{
+		width: 1%;
+		height: 300px;
+		float: left;
+
+	}
+	#div_con{
+		width: 90%;
+		height: 	300px;
+		float:  center;
+		text-align: 	center;
+	}
+
+
+	</style>
+</head>
+
+
+<body>
+
+	<div id = div_top>
+		<img src="logo5.jpg" width="327" height="100" onclick = "location.href='home5.php';">
+
+		
+	</div>
+
+	<div id = div_hello>
+		<div id="introduce">
+			<br / ><br />
+			<form action="login_check5.php" method="post">
+		
+			<?php
+				$con = mysql_connect("localhost", "root", "8713");
+				mysql_select_db("egatan");
+				
+				$id=$_GET[id];
+
+				$query = "select * from reservation";
+				$result = mysql_query($query, $con);
+
+				$result2 = mysql_query("SELECT * FROM manager where id='$id'");
+				//$getID="select ID from manager where id='$id'";
+				
+				while($row=mysql_fetch_array($result2, MYSQL_ASSOC)){
+				
+				$name=$row["Name"];
+				$ID=$row["id"];
+				$PW=$row["pw"];
+				$park=$row["Park"];
+				} 
+
+				$total_records = mysql_num_rows($result);
+				$timestamp = new DateTime($result -> DT);
+
+				
+				echo "관리자님 안녕하세요!";
+				echo "<br>";
+				print $timestamp->format("Y년m월d일 "); 
+				echo "예약된 이벤트는 총 $total_records 건입니다.";
+
+				?>
+
+			<a href='logout5.php'><input type='button' value='Logout'></a>
+		</div>
+	</div>
+
+	<br  /><br  /><br  />
+
+	<div id = div_menu>
+		<button
+			type = "button"
+			onclick = "location.href='practice.php';"
+			style =  "color: #fff;
+			background: skyblue;
+			font-size:1.2em;
+			border-radius:0.2em;">예약 확인</button>
+		<br  />
+		<button
+			type = "button"
+			style =  "color: #fff;
+			background: pink;
+			font-size:1.2em;
+			border-radius:0.2em;">회원 정보</button>
+	</div>
+
+
+	<div id = div_line>
+		
+			<HR width="1" size="600">
+		
+	</div>
+
+	<div id = "div_con" >
+		<table class = "tblType1" border = 0 cellspacing=0 cellpadding = 0 >
+			<tr>
+				<th width = "100" class = "th1"> 이름 </th>
+				<th width = "100" class = "th2"> 아이디 </th>
+				<th width = "100" class = "th3"> 비밀번호 </th>
+				<th width = "100" class = "th4"> hp </th>
+				<th width = "100" class = "th5"> age </th>
+
+			</tr>
+			
+			<tr height = 1 bgcolor=black><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+
+
+			<?php
+				$conn = mysqli_connect("localhost", "root", "8713", "egatan");
+
+				if (mysqli_connect_errno()){
+					echo "연결실패 이유"  . mysqli_connect_error();
+				}
+
+				$result = mysqli_query($conn, "SELECT * FROM user");
+				$n = 1;
+				
+				while($row = mysqli_fetch_array($result)){
+
+					echo "<tr>";
+					echo "<td>" . $row['name'] . "</td>";
+					echo "<td>" . $row['id'] . "</td>";
+					echo "<td>" . $row['pw'] . "</td>";
+					echo "<td>" . $row['hp'] . "</td>";
+					echo "<td>" . $row['age'] . "</td>";
+					echo "<tr>";
+
+					$n++;
+				}
+			
+				mysqli_close($conn);
+			?>
+		</table>
+	</div>
+</body>

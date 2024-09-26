@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Aug  6 17:15:23 2018
+
+@author: CSE124
+"""
+
+import os
+import numpy as np
+import pandas as pd
+
+
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('C:/Users/CSE124/Desktop/4seasons.csv')
+df
+
+ax = None
+for i in df['season'].unique():
+    x = df[df['season'] == i]['t'].tolist()
+    y = df[df['season'] == i]['h'].tolist()
+    ax = plt.scatter(x,y)
+plt.show()
+
+#plt.scatter(df['temp'].tolist(), df['hhhh'].tolist())
+#plt.show()
